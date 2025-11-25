@@ -1,0 +1,15 @@
+langchain
+langchain-groq
+langchain-community
+langchain-huggingface
+langgraph
+langsmith
+qdrant-client
+sentence-transformers
+streamlit
+python-dotenv
+pypdf
+docx2txt
+openpyxl
+tiktoken
+langchain-text-splitters

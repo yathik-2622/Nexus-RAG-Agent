@@ -1,0 +1,23 @@
+# General Python
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual Environment
+venv/
+.venv/
+env/
+
+# Environment Variables (NEVER PUSH THIS)
+.env
+
+# Local Data Stores (Don't push the heavy DB files)
+data/
+local_qdrant/
+
+# IDE settings (Optional but good practice)
+.vscode/
+.idea/
+
+# Mac OS specific
+.DS_Store
