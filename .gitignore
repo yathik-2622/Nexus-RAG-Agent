@@ -24,3 +24,6 @@ raw_documents/
 
 # Mac OS specific
 .DS_Store
+
+# UI versions
+UI_versions/
