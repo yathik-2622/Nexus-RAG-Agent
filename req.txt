@@ -1,0 +1,27 @@
+langchain
+langchain-groq
+langchain-community
+langchain-huggingface
+langgraph
+langsmith
+qdrant-client
+sentence-transformers
+streamlit
+python-dotenv
+pypdf
+docx2txt
+openpyxl
+tiktoken
+langchain-text-splitters
+
+
+
+[theme]
+primaryColor = "#00ADB5"
+backgroundColor = "#0E1117"
+secondaryBackgroundColor = "#262730"
+textColor = "#FAFAFA"
+font = "sans serif"
+
+[server]
+headless = true

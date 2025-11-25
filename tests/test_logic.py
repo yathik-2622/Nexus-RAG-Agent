@@ -71,19 +71,17 @@ def test_router_chain_predict_weather():
     # Test if the router correctly predicts 'weather_api'
     
     # We patch the ChatGroq class itself in the router module
-    # This prevents the actual LLM from initializing and allows us to mock the chain it produces
     with patch('src.components.router.ChatGroq') as MockChatGroq:
-        # Create a mock for the chain that ChatGroq.with_structured_output returns
+        # Create a mock for the chain
         mock_chain = MagicMock()
         
-        # When invoke is called on this mock chain, return a valid RouteQuery object
-        # This bypasses the parser logic entirely, isolating the test to the "flow"
+        # Mock the return value to be a valid RouteQuery object
         mock_chain.invoke.return_value = RouteQuery(datasource="weather_api")
         
         # Connect our mock chain to the LLM mock
         MockChatGroq.return_value.with_structured_output.return_value = mock_chain
         
-        # Get the router (which now uses our mock)
+        # Get the router
         router_chain = get_router_chain()
         
         # Run the chain
@@ -94,9 +92,11 @@ def test_router_chain_predict_weather():
 
 # --- 3. Test Retrieval Logic (Qdrant & Embeddings) ---
 
-@patch('src.components.ingestion.Qdrant.from_documents')
+# We now patch the NEW classes we are using in ingestion.py
+@patch('src.components.ingestion.QdrantVectorStore')
+@patch('src.components.ingestion.QdrantClient')
 @patch('src.components.ingestion.HuggingFaceEmbeddings')
-def test_ingest_file_logic(mock_embeddings, mock_qdrant_from_documents):
+def test_ingest_file_logic(mock_embeddings, mock_client, mock_vector_store):
     # Test the ingestion function logic
     
     # Create a dummy file for the loader to find
@@ -105,17 +105,20 @@ def test_ingest_file_logic(mock_embeddings, mock_qdrant_from_documents):
         f.write("Test content for retrieval.")
         
     try:
-        # Mock the Qdrant instance return value
-        mock_retriever = MagicMock()
-        mock_qdrant_from_documents.return_value.as_retriever.return_value = mock_retriever
+        # Setup the mock instance that the constructor returns
+        mock_vs_instance = mock_vector_store.return_value
         
         # Run the ingestion function
         retriever = ingest_file(test_filename)
         
-        # Assert that the Qdrant insertion method was called
-        assert mock_qdrant_from_documents.called
-        # Assert that an actual retriever object was returned
-        assert retriever == mock_retriever
+        # Assert that the Client was initialized
+        assert mock_client.called
+        # Assert that the VectorStore was initialized
+        assert mock_vector_store.called
+        # Assert that documents were added
+        assert mock_vs_instance.add_documents.called
+        # Assert that we got a retriever back
+        assert retriever == mock_vs_instance.as_retriever.return_value
         
     finally:
         # Clean up the mock file

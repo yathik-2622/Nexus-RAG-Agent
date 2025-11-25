@@ -136,6 +136,8 @@ Run the tests using pytest:
 
 ``` bash
 pytest tests/test_logic.py -v
+(or)
+python -m pytest tests/test_logic.py -v
 
 ```
 
