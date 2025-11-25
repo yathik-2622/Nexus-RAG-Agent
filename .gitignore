@@ -15,9 +15,15 @@ env/
 data/
 local_qdrant/
 
+# Just in case you created it outside
+raw_documents/
+
 # IDE settings (Optional but good practice)
 .vscode/
 .idea/
 
 # Mac OS specific
 .DS_Store
+
+# UI versions
+UI_versions/
