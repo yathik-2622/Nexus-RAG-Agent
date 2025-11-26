@@ -2,11 +2,47 @@
 __pycache__/
 *.py[cod]
 *$py.class
+.pytest_cache/
+*.pyo
+*.pyd
 
 # Virtual Environment
 venv/
 .venv/
 env/
+ENV/
+env.bak/    
+env.old/
+virtualenv/
+.virtualenv/
+# Jupyter Notebook checkpoints
+.ipynb_checkpoints/
+# Logs and databases
+*.log
+*.sqlite3
+*.db
+*.sqlite
+# Compiled files
+*.so
+*.dylib 
+*.dll
+*.exe
+*.out
+# Coverage reports
+htmlcov/
+.coverage
+.coverage.* 
+.cache
+nosetests.xml
+coverage.xml
+*.coverage
+# Distribution / packaging
+build/
+dist/   
+*.egg-info/
+.eggs/
+.installed.cfg
+*.egg
 
 # Environment Variables (NEVER PUSH THIS)
 .env

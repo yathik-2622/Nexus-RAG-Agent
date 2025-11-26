@@ -67,7 +67,7 @@ st.markdown("""
     .header-text {
         font-size: 1.5rem;
         font-weight: 700;
-        background: -webkit-linear-gradient(left, #00ADB5, #00ffcc);
+        background: -webkit-linear-gradient(left, #00ADB5, #ff0300);
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
     }

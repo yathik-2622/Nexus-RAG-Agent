@@ -1,35 +1,49 @@
-# 🤖 Intelligent Agentic RAG & Weather Pipeline
+# ⚡ Nexus Agent: Intelligent Agentic RAG & Weather Pipeline
 
 ![Python](https://img.shields.io/badge/Python-3.10%2B-blue)
 ![LangGraph](https://img.shields.io/badge/Orchestration-LangGraph-orange)
 ![Qdrant](https://img.shields.io/badge/Vector_DB-Qdrant_(Local)-red)
-![Streamlit](https://img.shields.io/badge/UI-Streamlit-green)
+![Streamlit](https://img.shields.io/badge/UI-Streamlit_Chat-green)
 
-An intelligent AI agent capable of routing user queries between **real-time weather data** and **document-based knowledge** (RAG). Built with **LangGraph** for orchestration, **Groq** for high-speed inference, and **Qdrant** for local vector storage.
+**Nexus Agent** is an advanced AI assistant capable of intelligently routing user queries between **real-time weather data** and **document-based knowledge** (RAG).
+
+Built with a focus on **observability and user experience**, it features real-time token streaming, a transparent thought process display, and a modern "App-like" dark mode interface.
 
 ---
 
 ## 📋 Table of Contents
-- [✨ Features](#-features)
+- [✨ Key Features](#-key-features)
 - [🏗️ System Architecture](#-system-architecture)
 - [⚙️ Tech Stack](#-tech-stack)
 - [🚀 Installation & Setup](#-installation--setup)
-- [🔑 Configuration](#-configuration)
-- [💻 Usage](#-usage)
+- [💻 Usage Guide](#-usage-guide)
 - [🧪 Testing](#-testing)
 - [📊 Evaluation (LangSmith)](#-evaluation-langsmith)
-- [📂 Repository Structure](#-repository-structure)
+- [📂 Project Structure](#-project-structure)
 
 ---
 
-## ✨ Features
+## ✨ Key Features
 
-* **🧠 Intelligent Routing:** A specialized **LangGraph** node (powered by Groq) analyzes user intent to decide whether to call the `Weather Tool` or the `RAG Retriever`.
-* **🌦️ Real-Time Weather:** Integration with **OpenWeatherMap API** to fetch live weather data for any city.
-* **📚 Retrieval-Augmented Generation (RAG):** Ingests PDF, TXT, and DOCX documents, generates embeddings via **HuggingFace**, and stores them in a local **Qdrant** instance.
-* **🕷️ Agentic Workflow:** Uses a state-based graph to manage conversation history, routing logic, and tool execution.
-* **👀 Observability:** Full integration with **LangSmith** for tracing LLM inputs, outputs, and latency.
-* **🖥️ Interactive UI:** A clean **Streamlit** interface with real-time logging, decision visualization, and retrieved context inspection.
+### 🧠 Intelligent Core
+* **Smart Routing:** A **LangGraph** router (powered by **Groq**) dynamically decides whether to call the `Weather Tool` or the `RAG Retriever` based on user intent.
+* **Agentic Workflow:** Uses a state-based graph to manage conversation history and tool execution steps.
+
+### 🎨 Modern User Experience (UI/UX)
+* **⚡ Real-Time Streaming:** Responses flow token-by-token (Typewriter effect), just like ChatGPT/Gemini.
+* **💭 Transparent Thought Process:** Every agent response includes a collapsible **"Thought Process"** section, allowing users to inspect the exact steps taken (e.g., "Router decided X", "Tool returned Y").
+* **📱 App-Like Interface:** Custom CSS implementation for:
+    * **Sticky Header:** Persistent navigation bar.
+    * **Message Alignment:** User (Right/Transparent) vs. Agent (Left/Transparent).
+    * **Clean Layout:** Fixed chat input at the bottom for a seamless feel.
+
+### 📚 Retrieval-Augmented Generation (RAG)
+* **Local Vector Store:** Ingests PDF, TXT, and DOCX files into a local **Qdrant** instance.
+* **HuggingFace Embeddings:** Uses `sentence-transformers/all-MiniLM-L6-v2` for high-quality retrieval.
+
+### 👀 Observability
+* **Live Internals Tab:** A split-screen view showing the **Active Tool** on the left and the **Raw Data Payload** (JSON/Text) on the right.
+* **LangSmith Integration:** Full tracing of latency, token usage, and decision paths.
 
 ---
 
@@ -40,10 +54,10 @@ The agent operates on a directed graph workflow:
 1.  **Start Node:** Receives user query.
 2.  **Router Node:** LLM classifies intent $\rightarrow$ `Weather` OR `Document`.
 3.  **Tool Nodes:**
-    * *Weather Path:* Calls OpenWeatherMap API.
-    * *RAG Path:* Queries Qdrant Vector DB for relevant chunks.
+    **Weather Path:** Calls OpenWeatherMap API.
+    **RAG Path:** Queries Qdrant Vector DB for relevant chunks.
 4.  **Generator Node:** LLM synthesizes the tool output into a natural language response.
-5.  **End Node:** Returns the final response to the UI.
+5.  **Streaming Output:** The final answer is streamed to the UI while steps are logged.
 
 ---
 
@@ -51,9 +65,9 @@ The agent operates on a directed graph workflow:
 
 * **LLM:** Groq (`llama-3.3-70b-versatile`)
 * **Orchestration:** LangChain & LangGraph
-* **Vector Database:** Qdrant (Local mode)
+* **Vector Database:** Qdrant (Embedded/Local mode)
 * **Embeddings:** HuggingFace (`sentence-transformers/all-MiniLM-L6-v2`)
-* **UI Framework:** Streamlit
+* **UI Framework:** Streamlit (with Custom CSS)
 * **Testing:** Pytest
 * **Evaluation:** LangSmith
 
@@ -84,88 +98,81 @@ The agent operates on a directed graph workflow:
     pip install -r requirements.txt
     ```
 
----
-
-## 🔑 Configuration
-
-Create a `.env` file in the root directory and add the following API keys:
-
-```ini
-# Core API Keys
-GROQ_API_KEY="gsk_..."
-OPENWEATHERMWAP_API_KEY="..."
-
-# LangSmith Configuration (For Evaluation)
-LANGCHAIN_TRACING_V2=true
-LANGCHAIN_ENDPOINT="[https://api.smith.langchain.com](https://api.smith.langchain.com)"
-LANGCHAIN_API_KEY="lsv2_..."
-LANGCHAIN_PROJECT="AI_Agent_Assignment"
-
-
-
+4.  **Configuration**
+    Create a `.env` file in the root directory:
+    ```ini
+    GROQ_API_KEY="gsk_..."
+    OPENWEATHERMWAP_API_KEY="..."
+    
+    # LangSmith (Optional but recommended)
+    LANGCHAIN_TRACING_V2=true
+    LANGCHAIN_API_KEY="lsv2_..."
+    ```
 
 ```
 💻 Usage
 1. Run the Streamlit App
 # Launch the user interface:
 
+### 1. Launch the App
 ```bash
 streamlit run app.py
 ```
 
 
-# 2. How to Interact
-## Weather Queries: 
-Ask questions like "What's the weather in Tokyo?" or "Is it raining in London?"
-Check the "Internals" tab to see the Router choose the Weather API.
 
-## Document Queries:
+# 2. Interaction Modes
+🌤️ Weather Mode
+Ask: "What is the current temperature in New York?"
 
-Use the sidebar to Upload a document (PDF, TXT, CSV).
-Click "Ingest Document" to process and index the file into Qdrant.
+# Observe:
+* The chat will show a "🧠 Processing Query..." status box.
+* Once complete, the answer streams in.
+* Check the "Internals" tab to see the raw JSON response from OpenWeatherMap.
 
-Ask questions like "Summarize the document" or "What are the key requirements?"
-Check the "Internals" tab to see the retrieved text chunks.
-
-
-
+# 📚 RAG (Document) Mode
+* Open the Sidebar.
+* Upload a PDF or TXT file.
+* Click "⚡ Embed & Ingest".
+* Ask: "Summarize the document" or "What are the key findings?"
+* Inspect: Click the "View Thought Process" expander under the answer to see that the agent chose the "Retrieval" path.
 
 # 🧪 Testing
-This project includes a suite of unit tests for API connectivity, router logic, and retrieval accuracy.
-Run the tests using pytest:
+Run the automated test suite to verify API connectivity and router logic:
 
-``` bash
+```bash
 pytest tests/test_logic.py -v
 (or)
-python -m pytest tests/test_logic.py -v
-
+pytest -m tests/test_logic.py -v
 ```
+# Coverage:
+* test_weather_api: Validates real connectivity to OpenWeatherMap.
+* test_router: Ensures the LLM correctly classifies intents.
+* test_ingest: Verifies Qdrant ingestion pipeline.
+### ✅ Test Results
+![Unit Test Results](assets/Testcases.png)
+
+## 📊 Evaluation (LangSmith)
+
+This project is fully integrated with **LangSmith** for evaluation.
+* **Traces:** Every interaction is logged to monitor latency and token usage.
+* **Decision Making:** The screenshot below shows the agent correctly routing queries.
+
+![LangSmith Dashboard](assets/langsmith_dashboard.png)
+![LangSmith Trace View -> Weather API](assets/langsmith_trace_view_Weather_1.png)
+![LangSmith Trace View -> RAG](assets/langsmith_trace_view_RAG_1.png)
 
 
-# Test Coverage:
-
-test_weather_api_success: Validates OpenWeatherMap connection.
-test_router_chain: Ensures the LLM correctly routes "weather" vs "doc" queries.
-test_ingest_file_logic: Verifies that Qdrant ingestion and retrieval logic works.
-
-
-# 📊 Evaluation (LangSmith)
-We use LangSmith to evaluate the agent's performance and decision-making.
-
-1.**Tracing**: Every interaction via the UI is traced.
-2.**Metrics**: We monitor latency, token usage, and tool selection accuracy.
-3.**Results**: Logs can be viewed in the LangSmith dashboard under project AI_Agent_Assignment.
-
-
-# 📂 Repository Structure
-ai_agent_assignment/
+# 📂 Repository Structure :
+```bash
+Nexus-RAG-Agent/
 ├── data/                   # Local Qdrant storage (gitignored)
 ├── src/
 │   ├── components/
-│   │   ├── ingestion.py    # File loading & Vector DB logic
-│   │   ├── router.py       # LLM Decision classification
-│   │   ├── tools.py        # OpenWeatherMap API tool
-│   │   └── graph.py        # LangGraph workflow definition
+│   │   ├── ingestion.py    # Qdrant & Embedding logic
+│   │   ├── router.py       # Classification Logic
+│   │   ├── tools.py        # Weather API Tool
+│   │   └── graph.py        # LangGraph State Machine
 │   ├── utils/
 │   │   └── logger.py       # Custom in-memory logging for UI
 ├── tests/                  # Pytest unit tests
