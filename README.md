@@ -109,9 +109,10 @@ The agent operates on a directed graph workflow:
     LANGCHAIN_API_KEY="lsv2_..."
     ```
 
----
-
-## 💻 Usage Guide
+```
+💻 Usage
+1. Run the Streamlit App
+# Launch the user interface:
 
 ### 1. Launch the App
 ```bash
@@ -173,14 +174,8 @@ Nexus-RAG-Agent/
 │   │   ├── tools.py        # Weather API Tool
 │   │   └── graph.py        # LangGraph State Machine
 │   ├── utils/
-│   │   └── logger.py       # Custom UI Logging
-├── tests/                  # Unit Tests
-├── app.py                  # Main Streamlit UI
-├── requirements.txt        # Dependencies
-└── .env                    # Secrets
-
-# for theme Use .streamlit/ folder
-```
-
-
-
+│   │   └── logger.py       # Custom in-memory logging for UI
+├── tests/                  # Pytest unit tests
+├── app.py                  # Main Streamlit application
+├── requirements.txt        # Python dependencies
+└── .env                    # API Keys config
