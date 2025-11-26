@@ -174,8 +174,16 @@ Nexus-RAG-Agent/
 │   │   ├── tools.py        # Weather API Tool
 │   │   └── graph.py        # LangGraph State Machine
 │   ├── utils/
-│   │   └── logger.py       # Custom in-memory logging for UI
-├── tests/                  # Pytest unit tests
-├── app.py                  # Main Streamlit application
-├── requirements.txt        # Python dependencies
-└── .env                    # API Keys config
+│   │   └── logger.py       # Custom UI Logging
+├── tests/                  # Unit Tests
+├── app.py                  # Main Streamlit UI
+├── requirements.txt        # Dependencies
+└── .env                    # Secrets
+
+# for theme Use .streamlit/ folder
+```
+
+### 🎥 Project Walkthrough
+![Watch the Nexus Agent Demo Video](https://sl1nk.com/Yathik-Nexus-AI-Agent-Showcase)
+
+
