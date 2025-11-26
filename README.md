@@ -183,5 +183,7 @@ Nexus-RAG-Agent/
 # for theme Use .streamlit/ folder
 ```
 
-
+# DEMO UI:
+![DEMO UI 1](assets/demo_1.png)
+![DEMO UI 2](assets/demo_2.png)
 
