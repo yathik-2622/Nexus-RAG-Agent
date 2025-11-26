@@ -109,9 +109,10 @@ The agent operates on a directed graph workflow:
     LANGCHAIN_API_KEY="lsv2_..."
     ```
 
----
-
-## 💻 Usage Guide
+```
+💻 Usage
+1. Run the Streamlit App
+# Launch the user interface:
 
 ### 1. Launch the App
 ```bash
