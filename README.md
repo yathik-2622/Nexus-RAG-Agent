@@ -183,7 +183,5 @@ Nexus-RAG-Agent/
 # for theme Use .streamlit/ folder
 ```
 
-### 🎥 Project Walkthrough
-![Watch the Nexus Agent Demo Video](https://sl1nk.com/Yathik-Nexus-AI-Agent-Showcase)
 
 
