@@ -10,6 +10,14 @@ from langchain_groq import ChatGroq
 from langchain_core.output_parsers import StrOutputParser
 # Import the prompt template
 from langchain_core.prompts import PromptTemplate
+# Import os for environment variables
+import os
+
+# Load environment variables from .env file
+from dotenv import load_dotenv
+
+# Initialize environment variables
+load_dotenv()
 
 # Import our custom components
 from src.components.ingestion import get_retriever
@@ -64,7 +72,8 @@ def weather_search(state: AgentState):
     # For a robust production app, we'd use an extraction chain. 
     # For this assignment, we pass the whole query or extraction logic.
     # Let's use the LLM to extract the city for better accuracy.
-    llm = ChatGroq(model="llama-3.3-70b-versatile", temperature=0)
+    groq_model = os.getenv("GROQ_MODEL_NAME", "")
+    llm = ChatGroq(model=groq_model, temperature=0)
     
     # Prompt to extract city name only
     system_prompt = "Extract only the city name from the user's query about weather. Return nothing else."
@@ -86,7 +95,8 @@ def generate(state: AgentState):
     documents = state["documents"]
     
     # Initialize the LLM
-    llm = ChatGroq(model="llama-3.3-70b-versatile", temperature=0)
+    groq_model = os.getenv("GROQ_MODEL_NAME", "")
+    llm = ChatGroq(model=groq_model, temperature=0)
     
     # Define the RAG prompt
     prompt = PromptTemplate(

@@ -1,14 +1,20 @@
 # Import Literal for type safety in routing
 from typing import Literal
 # Import Pydantic BaseModel/Field for structured output
-# from langchain_core.pydantic_v1 import BaseModel, Field
-# Change this line in src/components/router.py:
-# from langchain_core.pydantic_v1 import BaseModel, Field
-
-# TO THIS:
 from pydantic import BaseModel, Field # Use standard Pydantic import
 # Import ChatGroq for the LLM
 from langchain_groq import ChatGroq
+
+# Import os for environment variables
+import os
+
+# Load environment variables from .env file
+from dotenv import load_dotenv
+
+
+# Initialize environment variables
+load_dotenv()
+
 # Import our logger
 from src.utils.logger import get_logger
 
@@ -30,7 +36,8 @@ def get_router_chain():
     
     # Initialize the Groq LLM
     # temperature=0 ensures deterministic (consistent) routing
-    llm = ChatGroq(model="llama-3.3-70b-versatile", temperature=0)
+    groq_model = os.getenv("GROQ_MODEL_NAME", "")
+    llm = ChatGroq(model=groq_model, temperature=0)
     
     # Bind the structured output model to the LLM
     # This forces the LLM to return strictly the RouteQuery format
