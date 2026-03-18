@@ -23,8 +23,8 @@ os.makedirs(RAW_DATA_DIR, exist_ok=True)
 
 # --- Page Configuration ---
 st.set_page_config(
-    page_title="RyStudios Nexus Agent",
-    page_icon="⬖",
+    page_title="⟡ Nexus Agent",
+    page_icon="logo.png",
     layout="wide",
     initial_sidebar_state="expanded"
 )
@@ -181,7 +181,7 @@ st.markdown("""
 # --- RENDER: Fixed Header Text ---
 st.markdown("""
     <div class="fixed-header">
-        <span class="header-text">✨ RYSTUDIOS NEXUS AGENT</span> 
+        <span class="header-text">⟡RYSTUDIOS NEXUS AGENT</span> 
     </div>
 """, unsafe_allow_html=True)
 
