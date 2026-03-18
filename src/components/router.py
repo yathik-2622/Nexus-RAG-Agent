@@ -25,11 +25,14 @@ logger = get_logger(__name__)
 class RouteQuery(BaseModel):
     """Route a user query to the most relevant datasource."""
     
-    # The 'datasource' field must be either 'vectorstore' or 'weather_api'
-    datasource: Literal["vectorstore", "weather_api"] = Field(
+    # The 'datasource' field must be 'vectorstore' or 'weather_api' or 'general_chat'
+    datasource: Literal["vectorstore", "weather_api", "general_chat"] = Field(
         ...,
-        description="Given a user question choose to route it to weather_api or a vectorstore.",
+        description="Given a user question choose to route it to weather_api or a vectorstore. or general_chat for normal questions like hi, how are you, etc.",
     )
+
+# class RouteQuery(BaseModel):
+#     datasource: Literal["vectorstore", "weather_api", "general_chat"] = Field(...)
 
 def get_router_chain():
     # Function to create the routing chain

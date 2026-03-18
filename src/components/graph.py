@@ -141,6 +141,9 @@ def route_question(state: AgentState):
         return "weather_search"
     elif source.datasource == "vectorstore":
         return "retrieve"
+    else:
+        # For general chat or unrecognized, we can default to generation without context
+        return "generate"
 
 # --- 4. Build the Graph ---
 
@@ -160,6 +163,7 @@ def build_graph():
         {
             "weather_search": "weather_search",
             "retrieve": "retrieve",
+            "generate": "generate",  # For general chat or fallback
         },
     )
 

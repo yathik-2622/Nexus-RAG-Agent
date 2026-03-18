@@ -121,7 +121,13 @@ def get_retriever():
     
     embeddings = HuggingFaceEmbeddings(model_name=EMBEDDING_MODEL_NAME)
     
-    client = QdrantClient(path=QDRANT_PATH)
+    # client = QdrantClient(path=QDRANT_PATH)
+
+    # To this (for Cloud deployment):
+    client = QdrantClient(
+        url=os.getenv("QDRANT_URL"), 
+        api_key=os.getenv("QDRANT_API_KEY")
+    )
     
     # Connect using the new QdrantVectorStore
     vector_store = QdrantVectorStore(
