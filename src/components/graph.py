@@ -92,25 +92,62 @@ def generate(state: AgentState):
     
     logger.info("---NODE: GENERATE---")
     question = state["question"]
-    documents = state["documents"]
+
+    # FIX: Use .get() to avoid the 'documents' KeyError
+    # If the key is missing (like in general chat), it defaults to an empty list []
+    documents = state.get("documents", [])
+    # documents = state["documents"]
     
     # Initialize the LLM
     groq_model = os.getenv("GROQ_MODEL_NAME", "")
     llm = ChatGroq(model=groq_model, temperature=0)
     
     # Define the RAG prompt
+    # prompt = PromptTemplate(
+    #     template="""You are the 'Rystudios Nexus Agent', a helpful and professional AI assistant.
+        
+    #     Capabilities:
+    #     - You can answer general questions and greetings.
+    #     - You can fetch real-time weather using your weather tool.
+    #     - You can search through uploaded documents to provide specific answers.
+        
+    #     If the user asks who you are or what you can do, explain these capabilities.
+    #     Use the following context to answer if available. If no context exists and it's not a greeting, say you don't know.
+        
+    #     Context: {context} 
+    #     Question: {question} 
+    #     Answer:""",
+    #     input_variables=["question", "context"],
+    # )
     prompt = PromptTemplate(
-        template="""You are an assistant for question-answering tasks. 
-        Use the following pieces of retrieved context to answer the question. 
-        If you don't know the answer, just say that you don't know. 
+        template="""You are the 'RyStudios Nexus Agent', a helpful and professional AI assistant.
         
-        Question: {question} 
+        Capabilities:
+        - You can answer general questions, greet users, and explain who you are.
+        - You can fetch real-time weather for any city.
+        - You can analyze uploaded documents to answer specific questions.
         
-        Context: {context} 
+        If the user asks for your name or what you can do, introduce yourself as RyStudios Nexus Agent and list your capabilities clearly.
         
+        Use the following context to answer if relevant. If no context exists and it's not a general greeting, say you don't know.
+        
+        Context: {context}
+        Question: {question}
         Answer:""",
         input_variables=["question", "context"],
     )
+    # prompt = PromptTemplate(
+    #     template="""You are an assistant for question-answering tasks. 
+    #     Use the following pieces of retrieved context to answer the question. 
+    #     If you don't know the answer, just say that you don't know. 
+        
+    #     Question: {question} 
+        
+    #     Context: {context} 
+        
+    #     Answer:""",
+    #     input_variables=["question", "context"],
+    # )
     
     # Create the chain
     rag_chain = prompt | llm | StrOutputParser()

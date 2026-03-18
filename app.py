@@ -181,7 +181,7 @@ st.markdown("""
 # --- RENDER: Fixed Header Text ---
 st.markdown("""
     <div class="fixed-header">
-        <span class="header-text">✨ RYSTUDIOS NEXUS AGENT</span> # Updated branding
+        <span class="header-text">✨ RYSTUDIOS NEXUS AGENT</span> 
     </div>
 """, unsafe_allow_html=True)
 
