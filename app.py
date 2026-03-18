@@ -14,13 +14,17 @@ from src.utils.logger import get_logs
 load_dotenv()
 
 # --- Configuration ---
-RAW_DATA_DIR = "./data/raw_documents"
+# RAW_DATA_DIR = "./data/raw_documents"
+# os.makedirs(RAW_DATA_DIR, exist_ok=True)
+
+# Change this for Cloud Deployment
+RAW_DATA_DIR = "/tmp/raw_documents" 
 os.makedirs(RAW_DATA_DIR, exist_ok=True)
 
 # --- Page Configuration ---
 st.set_page_config(
-    page_title="Nexus Agent",
-    page_icon="⚡",
+    page_title="RyStudios Nexus Agent",
+    page_icon="⬖",
     layout="wide",
     initial_sidebar_state="expanded"
 )
@@ -177,7 +181,7 @@ st.markdown("""
 # --- RENDER: Fixed Header Text ---
 st.markdown("""
     <div class="fixed-header">
-        <span class="header-text">⚡ NEXUS AGENT</span>
+        <span class="header-text">✨ RYSTUDIOS NEXUS AGENT</span> # Updated branding
     </div>
 """, unsafe_allow_html=True)
 
@@ -277,7 +281,18 @@ if selected_tab == "💬 Chat":
                         st.session_state.last_step = "Weather API"
                         st.session_state.last_retrieved_docs = event["weather_search"].get("documents", [])
                         
+                    # elif "generate" in event:
+                    #     status.write("⚡ Synthesizing Answer...")
+                    #     steps_log.append("LLM: Generating Response")
+                    #     final_text = event["generate"]["generation"]
+                    
+                    # NEW: Add a visual cue for general conversation
                     elif "generate" in event:
+                        if not st.session_state.last_step:
+                            status.write("💬 Thinking...")
+                            steps_log.append("Router: General Conversation")
+                            st.session_state.last_step = "General Chat"
+                        
                         status.write("⚡ Synthesizing Answer...")
                         steps_log.append("LLM: Generating Response")
                         final_text = event["generate"]["generation"]

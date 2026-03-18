@@ -86,8 +86,12 @@ def ingest_file(file_path: str):
         embeddings = HuggingFaceEmbeddings(model_name=EMBEDDING_MODEL_NAME)
         logger.info("Loaded HuggingFace Embeddings model.")
 
-        # 4. Initialize Qdrant Client
-        client = QdrantClient(path=QDRANT_PATH)
+        # 4. Initialize Qdrant Client for Cloud deployment
+        # client = QdrantClient(path=QDRANT_PATH)
+        client = QdrantClient(
+        url=os.getenv("QDRANT_URL"), 
+        api_key=os.getenv("QDRANT_API_KEY")
+    )
 
         # 5. Recreate Collection (Force fresh start for this assignment)
         if client.collection_exists(COLLECTION_NAME):
@@ -121,7 +125,7 @@ def get_retriever():
     
     embeddings = HuggingFaceEmbeddings(model_name=EMBEDDING_MODEL_NAME)
     
-    # client = QdrantClient(path=QDRANT_PATH)
+    # client = QdrantClient(path=QDRANT_PATH) for local
 
     # To this (for Cloud deployment):
     client = QdrantClient(
