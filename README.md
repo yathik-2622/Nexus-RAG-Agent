@@ -26,7 +26,8 @@ Built with a focus on **observability and user experience**, it features real-ti
 ## ✨ Key Features
 
 ### 🧠 Intelligent Core
-* **Smart Routing:** A **LangGraph** router (powered by **Groq**) dynamically decides whether to call the `Weather Tool` or the `RAG Retriever` based on user intent.
+* **Agentic Identity:** Explicitly programmed to identify as the `RyStudios Nexus Agent`, explaining its own capabilities and purpose.
+* **Smart Routing:** A **LangGraph** router (powered by **Groq**) dynamically decides whether to call the `Weather Tool` or the `RAG Retriever` based on user intent , or `General Chat`.
 * **Agentic Workflow:** Uses a state-based graph to manage conversation history and tool execution steps.
 
 ### 🎨 Modern User Experience (UI/UX)
@@ -51,18 +52,18 @@ Built with a focus on **observability and user experience**, it features real-ti
 
 The agent follows a modular, state-driven directed graph workflow:
 
-**Entry Point:** The user query is received and stored in the AgentState.
-**Router Node (The Brain):** The Groq LLM analyzes the query and selects one of three paths:
-**Weather Path:** Triggered by queries about temperature or conditions.
-**Vectorstore Path:** Triggered when the user asks about uploaded documents.
-**General Chat Path:** Triggered for greetings, identity questions ("Who are you?"), or general knowledge.
+* **Entry Point:** The user query is received and stored in the AgentState.
+* **Router Node (The Brain):** The Groq LLM analyzes the query and selects one of three paths:
+* **Weather Path:** Triggered by queries about temperature or conditions.
+* **Vectorstore Path:** Triggered when the user asks about uploaded documents.
+* **General Chat Path:** Triggered for greetings, identity questions ("Who are you?"), or general knowledge.
 
 # Execution Nodes:
 
-**weather_search:** Fetches data via OpenWeatherMap API.
-**retrieve:** Queries the Qdrant Cloud collection.
-**generate:** Always runs last. It synthesizes the tool output (or uses internal knowledge for general chat) into a branded final response.
-**State Management:** The AgentState ensures that even if a tool is skipped, the system defaults to an empty context to prevent processing errors.
+* **weather_search:** Fetches data via OpenWeatherMap API.
+* **retrieve:** Queries the Qdrant Cloud collection.
+* **generate:** Always runs last. It synthesizes the tool output (or uses internal knowledge for general chat) into a branded final response.
+* **State Management:** The AgentState ensures that even if a tool is skipped, the system defaults to an empty context to prevent processing errors.
 
 ---
 
@@ -83,6 +84,7 @@ The agent follows a modular, state-driven directed graph workflow:
 ### Prerequisites
 * Python 3.9+
 * Git
+* Qdrant Cloud Cluster URL & API Key
 
 ### Steps
 
@@ -108,7 +110,6 @@ The agent follows a modular, state-driven directed graph workflow:
     ```ini
     GROQ_API_KEY="gsk_..."
     OPENWEATHERMWAP_API_KEY="..."
-    # Add these to your README's .env example
     QDRANT_URL="https://your-cluster-url.aws.cloud.qdrant.io"
     QDRANT_API_KEY="your_cloud_api_key"
     
@@ -117,16 +118,14 @@ The agent follows a modular, state-driven directed graph workflow:
     LANGCHAIN_API_KEY="lsv2_..."
     ```
 
-```
-💻 Usage
+
+# 💻 Usage
 1. Run the Streamlit App
 # Launch the user interface:
-
 ### 1. Launch the App
 ```bash
 streamlit run app.py
 ```
-
 
 
 # 2. Interaction Modes
