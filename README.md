@@ -49,6 +49,18 @@ Built with a focus on **observability and user experience**, it features real-ti
 ---
 
 ## 🏗️ System Architecture
+User Query
+   ↓
+Router (Groq LLM)
+   ↓
+ ┌───────────────┬───────────────┬───────────────┐
+ │ Weather Path  │ RAG Path      │ General Chat  │
+ │ (API Tool)    │ (Qdrant)      │ (LLM Only)    │
+ └───────────────┴───────────────┴───────────────┘
+   ↓
+Generate Node (Final Response)
+   ↓
+Streamed Output + Thought Process
 
 The agent follows a modular, state-driven directed graph workflow:
 
