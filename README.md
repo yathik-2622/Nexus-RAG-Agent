@@ -9,6 +9,8 @@
 
 Built with a focus on **observability and user experience**, it features real-time token streaming, a transparent thought process display, and a modern "App-like" dark mode interface.
 
+[![Live Demo](https://img.shields.io/badge/Live-Demo-brightgreen)](https://rystudios-nexus-agent.streamlit.app/)
+
 ---
 
 ## 📋 Table of Contents
@@ -49,11 +51,11 @@ Built with a focus on **observability and user experience**, it features real-ti
 ---
 
 ## 🏗️ System Architecture
+
 User Query
    ↓
 Router (Groq LLM)
-   ↓
- ┌───────────────┬───────────────┬───────────────┐
+   ↓ ┌───────────────┬───────────────┬───────────────┐
  │ Weather Path  │ RAG Path      │ General Chat  │
  │ (API Tool)    │ (Qdrant)      │ (LLM Only)    │
  └───────────────┴───────────────┴───────────────┘
