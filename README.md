@@ -9,7 +9,7 @@
 
 Built with a focus on **observability and user experience**, it features real-time token streaming, a transparent thought process display, and a modern "App-like" dark mode interface.
 
-[![Live Demo](https://img.shields.io/badge/Live-Demo-brightgreen)](https://rystudios-nexus-agent.streamlit.app/)
+[![Live Demo](https://img.shields.io/badge/Live-Demo-brightgreen)](https://rystudios-nexus-agent.streamlit.app/) [rystudios-nexus-agent](https://rystudios-nexus-agent.streamlit.app/)
 
 ---
 
@@ -207,4 +207,11 @@ Nexus-RAG-Agent/
 # DEMO UI:
 ![DEMO UI 1](assets/demo_1.png)
 ![DEMO UI 2](assets/demo_2.png)
+
+## 🎬 Part of RyStudios App Suite
+> This is Agent #1 of many Agent projects under the RyStudios portfolio.
+
+---
+
+© 2026 Yathik · RyStudios. All rights reserved.
 
